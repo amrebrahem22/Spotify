@@ -1,0 +1,33 @@
+.login {
+    min-height: 100vh;
+    background-color: #000;
+    display: grid;
+    width: 100%;
+    place-items: center;
+}
+
+.login > img {
+    height: 200px;
+}
+
+.login a {
+    background: #1db954;
+    color: #fff;
+    padding: 1rem 3rem;
+    border-radius: 25px;
+    font-weight: 900;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    transition: all .3s ease;
+    animation: fade .3s ease;
+    opacity: .8;
+}
+
+.login a:hover {
+    opacity: 1;
+}
+
+@keyframes fade {
+    0% {transform: scale(0)}
+    100% {transform: scale(1)}
+}
