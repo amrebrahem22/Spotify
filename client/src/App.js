@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './App.css';
 import Login from './pages/Login/Login';
 import { getTokenFromResponse } from './spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { useStateValue } from "./StateProvider";
+import Player from './pages/player/Player';
 
-const s = new SpotifyWebApi();
+const spotify = new SpotifyWebApi();
 
 function App() {
-  const [token, setToken] = useState('');
+  const [{token}, dispatch] = useStateValue();
 
   useEffect(() => {
     let hash = getTokenFromResponse();
@@ -18,22 +19,36 @@ function App() {
     const _token = hash.access_token;
 
     if (_token) {
-      setToken(_token);
+      spotify.setAccessToken(_token);
+      
+      dispatch({
+        type: "SET_TOKEN",
+        token: _token,
+      });
 
-      s.setAccessToken(_token);
-
-      s.getMe().then(user => {
-        console.log(user);
+      spotify.getMe().then(user => {
+        console.log(user)
+        dispatch({
+          type: 'SET_USER',
+          user
+        })
       })
+      
+      spotify.getUserPlaylists().then((playlists) => {
+        console.log(playlists)
+        dispatch({
+          type: "SET_PLAYLISTS",
+          playlists,
+        });
+      });
     }
 
-    console.log('I got the token -> ', token);
 
-  }, [token])
+  }, [dispatch, token])
 
   return (
     <div className="app">
-      <Login />
+      {!token ? <Login /> : <Player spotify={spotify} />}
     </div>
   );
 }
