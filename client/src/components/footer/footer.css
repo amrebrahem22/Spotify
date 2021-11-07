@@ -45,7 +45,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 300px;
+    max-width: 400px;
 }
 .footer__right {
     flex: .3;
@@ -62,5 +62,5 @@
 }
 
 .footer__right * .MuiSlider-root {
-    color: green;
+    color: #1ed15e;
 }

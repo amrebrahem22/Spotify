@@ -11,6 +11,7 @@ import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import './footer.css';
 import albumImg from '../../images/album.jpg'
 
+
 const Footer = () => {
     return (
         <div className="footer">
